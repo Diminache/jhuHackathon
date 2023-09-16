@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Assistance Accessibility Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Medical Assistance Accessibility Tool</h1>
+            <h2>Simulate a Conversation with Your Healthcare Professional</h2>
+        </div>
+    </header>
+    <main>
+        <section class="voice-input">
+            <h3>The MAAT will listen to your initial response and describe in professional and layman’s terms what you could be dealing with, so you can best communicate with your healthcare professional.</h5>
+            <br>
+            <br>
+            <br>
+            <h2>Speak Here</h2>
+            <div class="microphone" id="microphone">
+                🎙️
+            </div>
+            <h5>Following the response, feel free to either continue the conversation or quit and receive a transcription of your conversation!</h5>
+            <div id="transcription"></div>
+            <button id="startButton">Start Recording</button>
+            <button id="stopButton" style="display:none;">Stop Recording</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Daanish Bawan, Tahir Ismailwala, Waleed Raza</p>
+    </footer>
+    <div id="warning"></div>
+    <div id="warningpt2"></div>
+    <script>
+        const recognition = new webkitSpeechRecognition();
+        const microphone = document.getElementById("microphone");
+        const startButton = document.getElementById("startButton");
+        const stopButton = document.getElementById("stopButton");
+        const transcription = document.getElementById("transcription");
+
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onstart = function () {
+            microphone.innerText = "🎙️ Recording...";
+            startButton.style.display = "none";
+            stopButton.style.display = "inline-block";
+        };
+
+        recognition.onresult = function (event) {
+            let transcript = "";
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    transcript += event.results[i][0].transcript;
+                }
+            }
+            transcription.innerText = transcript;
+        };
+
+        recognition.onend = function () {
+            microphone.innerText = "🎙️";
+            startButton.style.display = "inline-block";
+            stopButton.style.display = "none";
+        };
+
+        startButton.addEventListener("click", function () {
+            recognition.start();
+        });
+
+        stopButton.addEventListener("click", function () {
+            recognition.stop();
+        });
+    </script>
+</body>
+</html>
+ 
