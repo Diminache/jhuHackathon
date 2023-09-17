@@ -4,7 +4,7 @@ import websockets
 
 
 def GPTRequest_LaymansTerms(ComplicatedText):
-    openai.api_key = "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"
+    openai.api_key = "sk-"
 
     completion = openai.ChatCompletion.create(
     model = "gpt-3.5-turbo",

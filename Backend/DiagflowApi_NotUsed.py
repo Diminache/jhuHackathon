@@ -4,7 +4,7 @@ import openai
 
 app = Flask(__name__)
 
-openai.api_key = "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"
+openai.api_key = "sk-"
 
 def RequestGPT(Diagnosis):
 
