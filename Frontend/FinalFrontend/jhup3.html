@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 3</title>
+    <link href='https://fonts.googleapis.com/css?family=Inclusive Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Fredoka' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Summarization of complex medical information</h1>
+        </div>
+    </header>
+
+    <br>
+    <main>
+        <section class="voice-input">
+            <a href="index.html" class="page-button animate-color" padding="5px;">Home</a>
+            <a href="jhup2.html" class="page-button animate-color" style="margin-right: -10%;">Simulate Speaking to a physician</a>
+            <br>
+            <br>
+            <h2>Click Mic to speak, press again to stop recording!</h2>
+            <h6>The text will update as you speak, once you are done, scroll to the bottom for transcription.</h6>
+            
+            <br>
+            <!-- Use a div with class "microphone-container" to create the blue circle -->
+            <div class="microphone-container" id="toggle-microphone" style="cursor: pointer;">
+                <div class="microphone recording">🎙️</div>
+            </div>
+            <div id="ongoing-transcription" class="voice-input">
+            </div>
+            <br>
+            <hr>
+        </section>
+    </main>
+    <div class="creators">
+        <p>&copy; 2023 Daanish Bawan, Tahir Ismailwala, Waleed Raza</p>
+    </div>
+    <!-- JavaScript code for speech recognition -->
+<!-- JavaScript code for speech recognition -->
+<script>
+
+const socket = new WebSocket("ws://localhost:5001"); // Replace with your WebSocket server URL
+
+        // Function to handle messages received from the server
+        socket.onmessage = (event) => {
+            console.log(`Received: ${event.data}`);
+            const FinalTranscriptUpdated = document.getElementById("ongoing-transcription")
+            FinalTranscriptUpdated.textContent = event.data;
+        };
+
+        // Function to handle errors
+        socket.onerror = (error) => {
+            console.error(`WebSocket Error: ${error.message}`);
+        };
+
+        // Function to handle connection open event
+        socket.onopen = (event) => {
+            console.log("Connected to server.");
+
+            // Example: Send a message to the server after the connection is open
+            sendMessage("Hello, WebSocket server!");
+        };
+
+        // Function to handle connection close event
+        socket.onclose = (event) => {
+            if (event.wasClean) {
+                console.log(`Connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+            } else {
+                console.error("Connection died");
+            }
+        };
+
+        // Function to send a message to the server
+        function sendMessage(message) {
+            socket.send(message);
+        }
+
+    // Get references to HTML elements
+    const toggleMicrophone = document.getElementById('toggle-microphone');
+    const transcriptionTextarea = document.getElementById('ongoing-transcription');
+    const saveButton = document.getElementById('save-button'); // A button to save the transcript
+
+    // Initialize variables for speech recognition
+    let recognition = null; // Speech recognition object
+    let isRecording = false; // Flag to track whether recording is active
+    let finalTranscript = ''; // Store the final transcript
+    let interimTranscript = ''; // Store interim results
+
+    // Initialize the speech recognition when the DOM is loaded
+    window.addEventListener('DOMContentLoaded', () => {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true; // Continuous recognition
+        recognition.interimResults = true; // Get interim results during recognition
+
+        // Handle results from the speech recognition
+        recognition.onresult = (event) => {
+            interimTranscript = ''; // Clear interim results
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    finalTranscript += event.results[i][0].transcript; // Store final results
+                } else {
+                    interimTranscript += event.results[i][0].transcript; // Store interim results
+                }
+            }
+            updateTranscription(finalTranscript);
+        };
+
+        // Handle errors that may occur during recognition
+        recognition.onerror = (event) => {
+            console.error(event.error);
+        };
+    });
+    i_OffOn = 0
+    // Add a click event listener to the microphone button
+    toggleMicrophone.addEventListener('click', () => {
+        if(i_OffOn == 0)
+        {
+            i_OffOn = 1
+        }
+        else if(i_OffOn == 1)
+        {
+            sendMessage(finalTranscript);
+            i_OffOn = 0
+        }
+
+        // Check if speech recognition is supported by the browser
+        if (!recognition.start) {
+            alert('Speech recognition is not supported by your browser. Please use a compatible browser.');
+            return;
+        }
+
+        // Start or stop recording based on the current state
+        if (!isRecording) {
+            finalTranscript = ''; // Clear the final transcript
+            transcriptionTextarea.textContent = 'Listening...';
+            recognition.start(); // Start speech recognition
+            toggleMicrophone.textContent = '🎙️';
+            toggleMicrophone.classList.add('recording');
+            isRecording = true; // Set recording state to true
+        } else {
+            recognition.stop(); // Stop speech recognition
+            toggleMicrophone.textContent = '🎙️';
+            toggleMicrophone.classList.remove('recording');
+            isRecording = false; // Set recording state to false
+            saveButton.disabled = false; // Enable the save button once recording stops
+            
+        }
+    });
+
+    // Add a click event listener to the save button
+    saveButton.addEventListener('click', () => {
+        // You can now access the finalTranscript variable and do whatever you want with it
+        alert('Final Transcript: ' + finalTranscript);
+    });
+
+    // Function to update the transcription textarea
+    function updateTranscription() {
+        const newText = interimTranscript.trim() + ' ' + finalTranscript.trim();
+        transcriptionTextarea.textContent = newText;
+    }
+
+
+</script>
+</body>
+</html>

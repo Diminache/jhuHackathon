@@ -1,18 +1,13 @@
 from flask import Flask, request, jsonify
 import socket
 import openai
-import websockets
-import asyncio
 
 app = Flask(__name__)
 
 openai.api_key = "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"
 
-CurrentMessage = ""
-
-
 def RequestGPT(Diagnosis):
-    print("Requesting GPT")
+
     completion = openai.ChatCompletion.create(
     model = "gpt-3.5-turbo",
     temperature = 0.8,
@@ -22,9 +17,8 @@ def RequestGPT(Diagnosis):
         {"role": "user", "content": Diagnosis},
     ]
     )
-    
+
     print(completion.choices[0].message)
-    return completion.choices[0].message["content"]
 
 chat_log = []
 
@@ -33,10 +27,9 @@ def webhook():
     data = request.json
     chat_log.append(data)
     data = request.json
-    CurrentMessage = data['queryResult']['queryText']
-    print("User's Message:", CurrentMessage)
-    DiagnosticI = RequestGPT(CurrentMessage)
-    print(DiagnosticI)
+    user_message = data['queryResult']['queryText']
+    print("User's Message:", user_message)
+    RequestGPT(user_message)
     return jsonify({"message": "Message received"})
 
 

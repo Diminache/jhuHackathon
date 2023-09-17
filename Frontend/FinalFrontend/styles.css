@@ -1,0 +1,149 @@
+/* Reset and Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inclusive Sans', sans-serif;
+    font-size: 22px;
+    line-height: 1.6;
+    background-color: #222222;
+    color: #fff;
+    position: relative;
+    min-height: 100vh;
+}
+
+.page-button {
+    display: inline-block;
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.page-button.animate-color {
+    animation: colorFadeAnimation 2s linear infinite alternate;
+}
+
+@keyframes colorFadeAnimation {
+    0% {
+        background-color: #6e2500;
+    }
+    100% {
+        background-color: #ff5500;
+    }
+}
+
+header {
+    font-family: 'Fredoka', sans-serif;
+    background-color: #0052d6;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.main {
+    padding: 20px;
+}
+
+.voice-input {
+    text-align: center;
+}
+
+/* Style for the blue circle container */
+.microphone-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0052d6; /* Default blue color */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto; /* Center the circle horizontally using margin */
+    transition: background-color 0.3s, transform 0.3s, width 0.3s, height 0.3s; /* Add transition for smooth effect */
+    animation: none; /* Disable animation by default */
+}
+
+/* Define a keyframe animation for the circle */
+@keyframes circleAnimation {
+    0% {
+        transform: scale(1);
+        background-color: #0052d6;
+    }
+    50% {
+        transform: scale(1.2);
+        background-color: #003a8e;
+    }
+    100% {
+        transform: scale(1);
+        background-color: #0052d6;
+    }
+}
+
+/* Define a keyframe animation for blinking */
+@keyframes blinkAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Style for the recording state */
+/* Style for the recording state */
+.microphone-container.recording .microphone {
+    animation: blinkAnimation 2s ease infinite; /* Start blinking when recording */
+    font-size: 40px; /* Adjust the size of the icon */
+
+    background-color: #ff0000; /* Change to red color when recording */
+}
+
+
+/* Style for the microphone icon inside the circle */
+.microphone-container .microphone {
+    color: white; /* Set the microphone icon color to white */
+    font-size: 40px; /* Adjust the size of the icon */
+    line-height: 100px; /* Vertically center the icon within the circle */
+}
+
+/* Hover effect for the blue circle */
+.microphone-container:hover {
+    animation: circleAnimation 1s ease infinite; /* Apply animation on hover */
+}
+
+.creators {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 20px 0;
+    text-align: center;
+    color: #fff;
+}
+.iframe-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%; /* This creates a square aspect ratio */
+  }
+  
+  .iFrameTag {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; /* Set the width to 100% */
+    height: 50%; /* Set the height to 100% to create a square */
+    border: none;
+  }
+  

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Assistance Accessibility Tool</title>
+    <link href='https://fonts.googleapis.com/css?family=Inclusive Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Fredoka' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0; /* Set the top property to adjust the vertical position */
+}
+</style>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Medical Assistance Accessibility Tool</h1>
+        </div>
+    </header>
+    <main>
+        
+        <section class="voice-input">
+            <br>
+            <h1>The MAAT's 2 main functionalities are: </h1>
+            <br>
+            <h3> To allow patients to have a simulated conversation with a doctor, to gain an understanding of their medical inquiries, prior to a live doctor's visit <br> <br> To take a live voice memo of a patient's interactions, full doctor's visit and/or any complex medical information and Co it in a simplified, understandable manner</h3>
+            <br>
+            <br>
+            <a href="jhup2.html" class="page-button animate-color">Simulate Speaking to a Physician</a> <!-- Link to Page 2 -->
+            <a href="jhup3.html" class="page-button animate-color">Summarize transcription of your visit</a> <!-- Added animate-color class to both buttons -->
+            <br>
+        </section>
+    </main>
+    <footer>
+    </footer>
+    <div class="creators">
+        <p>&copy; 2023 Daanish Bawan, Tahir Ismailwala, Waleed Raza</p>
+    </div>
+    <div id="warning"></div>
+    <div id="warningpt2"></div>
+    
+    <!-- Embed the particles.js configuration -->
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 90,
+                    "density": {
+                        "enable": true,
+                        "value_area": 1000
+                    }
+                },
+                "color": {
+                    "value": "#FFFFFF" // Set the color to blue (#0052d6)
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 2,
+                        "color": "#ff5500" // Set the color to orange (#ff5500)
+                    },
+                    "polygon": {
+                        "nb_sides": 7
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 1,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 3,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3, // Increase the value to make the dots larger
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 20,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 250,
+                    "color": "#ff5500", // Set the color to orange (#ff5500)
+                    "opacity": .8,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 3,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 300,
+                        "size": 70,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 500,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        
+        
+    </script>
+</body>
+</html>
