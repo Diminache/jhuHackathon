@@ -6,7 +6,7 @@ import asyncio
 
 app = Flask(__name__)
 
-openai.api_key = "sk-"
+openai.api_key = "GetYourOwnKey"
 
 CurrentMessage = ""
 
